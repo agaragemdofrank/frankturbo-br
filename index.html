@@ -242,7 +242,7 @@
             z-index: 2;
         }
 
-        /* [CORREÇÃO FINAL] Controle de Volume Vertical */
+        /* [CONTROLE DE VOLUME VERTICAL E CORRIGIDO] */
         .volume-ctrl {
             position: absolute; 
             right: -20px; /* Posição à direita do painel */
@@ -465,7 +465,7 @@
         let isShuffle = false;
         let isDraggingTime = false; 
 
-        // --- SUA LISTA DE MÚSICAS (MANTIDA) ---
+        // --- SUA LISTA DE MÚSICAS (ADICIONADA AS NOVAS) ---
         const playlist_data = [
             { file: "musica1.mp3",  titulo: "FÉ NA LUTA",     artista: "LIL. FRANK" },
             { file: "musica2.mp3",  titulo: "DIPLOMA DE AÇO",     artista: "LIL. FRANK" },
@@ -478,7 +478,16 @@
             { file: "musica9.mp3",  titulo: "PULSO FORJADO",   artista: "LIL. FRANK" },
             { file: "musica10.mp3", titulo: "STAGE DE VITRINE",   artista: "LIL. FRANK" },
             { file: "musica11.mp3", titulo: "VIRADA DE CHAVE",   artista: "LIL. FRANK" },
-            { file: "musica12.mp3", titulo: "METAL DE VERDADE",   artista: "LIL. FRANK" }
+            { file: "musica12.mp3", titulo: "METAL DE VERDADE",   artista: "LIL. FRANK" },
+            // --- NOVAS MÚSICAS ADICIONADAS ---
+            { file: "musica13.mp3", titulo: "ZUMBILÂNDIA", artista: "LIL. FRANK" },
+            { file: "musica14.mp3", titulo: "RUÍDO ALTO", artista: "LIL. FRANK" },
+            { file: "musica15.mp3", titulo: "PROPÓSITO", artista: "LIL. FRANK" },
+            { file: "musica16.mp3", titulo: "SILÊNCIO NO TRIBUNAL", artista: "LIL. FRANK" },
+            { file: "musica17.mp3", titulo: "DR. KAOS", artista: "LIL. FRANK" },
+            { file: "musica18.mp3", titulo: "PEDIDO DE DEMISSÃO!", artista: "LIL. FRANK" },
+            { file: "musica19.mp3", titulo: "PEÇA BARATA", artista: "LIL. FRANK" }
+            // ----------------------------------
         ];
 
         // --- Funções de Utilitário ---
@@ -492,6 +501,7 @@
 
         function loadTrack(num) {
             const dados = playlist_data[num - 1];
+            // CRÍTICO: O nome do arquivo agora vai de musica1.mp3 até musica19.mp3
             const path = `assets/radio/${dados.file}`; 
             
             player.src = path;
@@ -558,16 +568,9 @@
         }
 
         function nextTrack() {
-            if (isShuffle) {
-                let next;
-                do {
-                    next = Math.floor(Math.random() * playlist_data.length) + 1;
-                } while (next === currentTrack && playlist_data.length > 1);
-                currentTrack = next;
-            } else {
-                currentTrack++;
-                if (currentTrack > playlist_data.length) currentTrack = 1;
-            }
+            currentTrack++;
+            // MUDANÇA: O novo limite é 19 faixas.
+            if (currentTrack > playlist_data.length) currentTrack = 1; 
             loadTrack(currentTrack);
         }
 
@@ -579,16 +582,23 @@
 
         function toggleShuffle() {
             isShuffle = !isShuffle;
+            
             if (isShuffle) {
                 shuffleBtn.classList.add('active-shuffle');
-                const dados = playlist_data[currentTrack - 1];
-                let displayNum = currentTrack < 10 ? '0' + currentTrack : currentTrack;
-                statusText.innerText = `TRACK ${displayNum} • ${dados.artista.toUpperCase()} • RND`;
             } else {
                 shuffleBtn.classList.remove('active-shuffle');
-                const dados = playlist_data[currentTrack - 1];
-                let displayNum = currentTrack < 10 ? '0' + currentTrack : currentTrack;
-                statusText.innerText = `TRACK ${displayNum} • ${dados.artista.toUpperCase()}`;
+            }
+            
+            if (isShuffle && playlist_data.length > 1) {
+                let next;
+                do {
+                    next = Math.floor(Math.random() * playlist_data.length) + 1;
+                } while (next === currentTrack); // Garante que não repita imediatamente
+                currentTrack = next;
+                loadTrack(currentTrack); // Carrega a faixa aleatória
+            } else {
+                 // Apenas atualiza o display se sair do shuffle ou se a lista for pequena
+                 loadTrack(currentTrack);
             }
         }
 
