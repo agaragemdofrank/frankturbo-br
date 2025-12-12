@@ -1,619 +1,1599 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garagem do Frank | Turbo & Performance</title>
-    <link rel="icon" href="assets/logo_frank.png" type="image/png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Garagem do Frank | Turbo & Performance</title>
 
-    <style>
-        /* --- CONFIGURAÇÕES VISUAIS GERAIS (TEMA AUTOMOTIVO NEON) --- */
-        :root {
-            --bg-body: #0a0a0a;
-            --bg-card: rgba(30, 30, 30, 0.6);
-            --turbo-red: #ff3b3b;
-            --neon-glow: 0 0 15px rgba(255, 59, 59, 0.6);
-            --automotive-blue: #00ccff; 
-            --automotive-glow: 0 0 10px rgba(0, 204, 255, 0.8);
-            --text-main: #ffffff;
-            --text-muted: #b0b0b0;
-            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            color: var(--text-main); 
-            font-family: 'Montserrat', sans-serif;
-            padding-bottom: 160px; /* Espaço para o rádio */
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
+  <style>
+    :root{
+      --bg:#07080a;
+      --panel:#0d0f14;
+      --panel2:#0a0c10;
+      --text:#e9eef6;
+      --muted:#aab6c6;
+      --automotive-blue:#00ccff;
+      --turbo-red:#ff3b3b;
+      --glow: 0 0 12px rgba(0,204,255,.55), 0 0 36px rgba(0,204,255,.20);
+      --glow-red: 0 0 12px rgba(255,59,59,.55), 0 0 28px rgba(255,59,59,.18);
+      --radius: 18px;
+      --radius-lg: 26px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --border: 1px solid rgba(255,255,255,.08);
+    }
 
-        /* --- HEADER FLUTUANTE --- */
-        header {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid rgba(255, 59, 59, 0.3);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-        }
-        .nav-container {
-            max-width: 1400px; margin: 0 auto; display: flex; 
-            justify-content: space-between; align-items: center; padding: 15px 20px;
-        }
-        .logo-img { height: 60px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-        
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-weight: 700; 
-            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
-            transition: 0.3s; position: relative;
-        }
-        .nav-links a:hover { color: var(--turbo-red); text-shadow: var(--neon-glow); }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(0,204,255,.09), transparent 60%),
+        radial-gradient(700px 500px at 80% 10%, rgba(255,59,59,.06), transparent 60%),
+        radial-gradient(900px 700px at 50% 110%, rgba(0,204,255,.06), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      padding-bottom: 210px; /* espaço para o dock */
+      overflow-x:hidden;
+    }
 
-        /* --- TIPOGRAFIA E SEÇÕES --- */
-        .container { max-width: 1300px; margin: 0 auto; padding: 60px 20px; }
-        
-        h1 { font-size: 3.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -2px; line-height: 1.1; margin-bottom: 10px; }
-        h1 span { color: var(--turbo-red); text-shadow: var(--neon-glow); }
-        
-        h2 { 
-            font-size: 2rem; border-left: 5px solid var(--turbo-red); 
-            padding-left: 20px; margin-bottom: 40px; font-style: italic; text-transform: uppercase; 
-            background: linear-gradient(90deg, rgba(255,59,59,0.1) 0%, transparent 100%);
-            padding-top: 5px; padding-bottom: 5px; border-radius: 0 10px 10px 0;
-        }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1120px, 92vw); margin:0 auto}
 
-        .tagline { color: var(--text-muted); font-size: 1.3rem; margin-bottom: 40px; font-weight: 400; }
+    /* Header */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 30;
+      background: rgba(7,8,10,.55);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 220px;
+    }
+    .brand img{width:46px; height:46px; object-fit:contain; filter: drop-shadow(0 0 10px rgba(0,204,255,.25));}
+    .brand .t{
+      display:flex; flex-direction:column; line-height:1.05;
+    }
+    .brand .t b{font-weight:800; letter-spacing:.4px}
+    .brand .t span{font-size:12px; color:var(--muted)}
+    .nav-links{
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+      align-items:center; justify-content:flex-end;
+    }
+    .nav-links a{
+      font-size:13px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(13,15,20,.35);
+      transition: .18s ease;
+    }
+    .nav-links a:hover{
+      border-color: rgba(0,204,255,.35);
+      box-shadow: var(--glow);
+      transform: translateY(-1px);
+    }
+    .nav-cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: var(--border);
+      background: rgba(13,15,20,.65);
+      font-weight:700;
+      letter-spacing:.2px;
+      transition:.18s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{box-shadow:var(--glow); border-color: rgba(0,204,255,.35); transform: translateY(-1px);}
+    .btn.red:hover{box-shadow:var(--glow-red); border-color: rgba(255,59,59,.35);}
+    .btn .dot{
+      width:8px; height:8px; border-radius:99px; background: var(--automotive-blue);
+      box-shadow: var(--glow);
+    }
+    .btn.red .dot{background:var(--turbo-red); box-shadow: var(--glow-red);}
 
-        /* --- PIX CARD (CLEAN) --- */
-        .pix-container {
-            background: rgba(20, 20, 20, 0.8); border: var(--glass-border);
-            padding: 40px; border-radius: 20px; text-align: center;
-            max-width: 600px; margin: 0 auto 60px auto;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5); position: relative; overflow: hidden;
-        }
-        
-        /* Oculta o código real mas mantém acessível para o JS */
-        .pix-mask {
-            font-family: monospace; color: #555; margin: 20px 0; font-size: 1.2rem; letter-spacing: 3px;
-        }
+    /* Hero */
+    .hero{
+      padding: 34px 0 18px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    .card{
+      border: var(--border);
+      background: linear-gradient(180deg, rgba(13,15,20,.85), rgba(10,12,16,.65));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      overflow:hidden;
+    }
+    .hero-main{
+      padding: 26px;
+      position:relative;
+      min-height: 320px;
+    }
+    .hero-main:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 220px at 20% 0%, rgba(0,204,255,.22), transparent 60%),
+        radial-gradient(520px 260px at 90% 20%, rgba(255,59,59,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-main > *{position:relative; z-index:1}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      font-weight:800;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      font-size:12px;
+      color: rgba(233,238,246,.92);
+    }
+    .kicker .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(0,204,255,.25);
+      background: rgba(0,204,255,.08);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset;
+    }
+    h1{
+      margin: 12px 0 10px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+    }
+    .hero-main p{
+      margin:0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.55;
+      max-width: 62ch;
+    }
+    .hero-actions{
+      margin-top: 18px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .hero-actions .btn{
+      padding: 12px 16px;
+      border-radius: 14px;
+    }
+    .hero-actions .btn.primary{
+      border-color: rgba(0,204,255,.35);
+      box-shadow: var(--glow);
+      background: rgba(0,204,255,.10);
+    }
+    .hero-actions .btn.primary:hover{
+      background: rgba(0,204,255,.16);
+    }
 
-        .btn-action {
-            background: var(--turbo-red); color: white; border: none; padding: 15px 40px;
-            font-size: 1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
-            border-radius: 50px; cursor: pointer; transition: 0.3s; position: relative; z-index: 2;
-            box-shadow: 0 5px 20px rgba(255, 59, 59, 0.4);
-            display: flex; align-items: center; gap: 10px; margin: 0 auto;
-        }
-        .btn-action:hover { transform: translateY(-3px) scale(1.05); background: #ff5555; }
-        .msg-success { color: #4ade80; margin-top: 15px; display: none; font-weight: bold; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .mini{
+      border: var(--border);
+      border-radius: 18px;
+      background: rgba(10,12,16,.55);
+      padding: 14px;
+    }
+    .mini h3{
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing:.3px;
+    }
+    .mini p{margin:0; color: var(--muted); font-size: 13px; line-height:1.5}
 
-        /* --- CARDS E GRID --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        
-        .card { 
-            background: var(--bg-card); border: var(--glass-border); border-radius: 15px; 
-            overflow: hidden; transition: 0.4s; position: relative;
-        }
-        .card:hover { transform: translateY(-10px); border-color: var(--turbo-red); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
-        .video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
-        .card-content { padding: 20px; }
-        .card-tag { display: inline-block; font-size: 0.75rem; text-transform: uppercase; color: var(--turbo-red); font-weight: bold; letter-spacing: 1px; }
+    .social-row{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(13,15,20,.5);
+      font-weight:700;
+      font-size: 13px;
+      transition:.18s ease;
+    }
+    .chip:hover{box-shadow:var(--glow); border-color: rgba(0,204,255,.35); transform: translateY(-1px);}
 
-        /* --- PARCEIROS --- */
-        .partner-card {
-            display: flex; align-items: center; gap: 20px; padding: 25px;
-            background: linear-gradient(145deg, #151515, #0a0a0a);
-            border: 1px solid #333; border-radius: 15px;
-        }
-        .p-img-box {
-            width: 90px; height: 90px; background: #fff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; padding: 10px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        }
-        .p-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .p-info h4 { font-size: 1.2rem; color: #fff; margin-bottom: 5px; }
-        .p-info p { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
-        .cupom-badge { background: rgba(255, 59, 59, 0.15); color: var(--turbo-red); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid rgba(255,59,59,0.3); }
-        .btn-zap { display: inline-block; margin-top: 10px; text-decoration: none; color: #fff; font-size: 0.85rem; font-weight: bold; transition: 0.3s; border-bottom: 1px solid transparent; }
-        .btn-zap:hover { color: #25D366; border-color: #25D366; }
+    /* Partner strip */
+    .partner-strip{
+      margin: 14px 0 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(10,12,16,.35);
+    }
+    .strip-inner{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      padding: 10px 0;
+      overflow:hidden;
+    }
+    .strip-label{
+      display:flex; align-items:center; gap:10px;
+      white-space:nowrap;
+      color: rgba(233,238,246,.85);
+      font-weight:800;
+      letter-spacing:.7px;
+      text-transform:uppercase;
+      font-size: 11px;
+    }
+    .strip-label .spark{
+      width:10px; height:10px; border-radius:99px;
+      background: var(--turbo-red);
+      box-shadow: var(--glow-red);
+    }
+    .logo-marquee{
+      display:flex; gap: 26px; align-items:center;
+      animation: marquee 26s linear infinite;
+      padding-left: 10px;
+    }
+    .logo-marquee img{
+      height: 34px; width:auto;
+      opacity:.86;
+      filter: grayscale(1) contrast(1.1) brightness(1.05);
+      transition: .2s ease;
+    }
+    .logo-marquee img:hover{
+      opacity:1;
+      filter: none;
+      transform: translateY(-1px);
+    }
+    @keyframes marquee{
+      from{transform: translateX(0)}
+      to{transform: translateX(-50%)}
+    }
 
-        /* --- FOOTER (Rodapé Profissional) --- */
-        .site-footer {
-            background-color: #050505; border-top: 1px solid #222;
-            padding: 40px 20px; text-align: center; margin-top: auto;
-        }
-        .footer-logo { height: 40px; opacity: 0.5; margin-bottom: 20px; filter: grayscale(100%); transition: 0.3s; }
-        .footer-logo:hover { opacity: 1; filter: grayscale(0%); }
-        .copyright { color: #666; font-size: 0.9rem; }
-        .social-footer { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
-        .social-footer a { color: #888; font-size: 0.9rem; transition: 0.3s; }
-        .social-footer a:hover { color: var(--turbo-red); }
+    /* Sections */
+    section{padding: 34px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom: 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:.2px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.5;
+      max-width: 70ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .span-6{grid-column: span 6}
+    .span-4{grid-column: span 4}
+    .span-8{grid-column: span 8}
+    .span-12{grid-column: span 12}
 
-        /* --- PLAYER AUTOMOTIVO FLUTUANTE --- */
-        .radio-dock {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 95%; max-width: 850px; height: 140px;
-            z-index: 1000;
-            padding-top: 20px;
-        }
-        .faceplate {
-            width: 100%; height: 110px;
-            background: linear-gradient(to bottom, #111, #000); /* Preto Fosco */
-            border-radius: 12px; border: 2px solid #333;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 25px; position: relative;
-        }
-        /* Efeito de brilho Neon */
-        .faceplate::after { 
-            content: ''; position: absolute; inset: -2px; border-radius: 12px; 
-            box-shadow: 0 0 15px var(--automotive-blue); 
-            opacity: 0.2; /* Suaviza o neon */
-            pointer-events: none; z-index: -1; 
-        }
+    .panel{
+      border: var(--border);
+      background: rgba(13,15,20,.65);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
 
-        .display-screen {
-            flex: 1; margin: 0 30px; height: 75px; background: #000; border: 2px solid #333; border-radius: 6px;
-            display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-            padding-left: 15px;
-            position: relative; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-        
-        /* [ANIMAÇÃO] Viz Bar Simples com Batida */
-        .viz-bar {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 100%; opacity: 0.2;
-            background: repeating-linear-gradient(90deg, transparent 0, transparent 4px, var(--automotive-blue) 5px);
-            opacity: 0.1; 
-            transform-origin: bottom;
-            animation: visualizer 0.8s infinite alternate; 
-        }
-        @keyframes visualizer { 
-            0% { opacity: 0.1; transform: scaleY(0.2); }
-            50% { opacity: 0.3; transform: scaleY(0.7); }
-            100% { opacity: 0.5; transform: scaleY(1); }
-        }
+    /* Video cards */
+    .tabs{
+      display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 12px;
+    }
+    .tab{
+      font-weight:800; font-size:12px; letter-spacing:.6px; text-transform:uppercase;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(10,12,16,.55);
+      cursor:pointer;
+      transition:.18s ease;
+      user-select:none;
+    }
+    .tab.active{
+      border-color: rgba(0,204,255,.35);
+      box-shadow: var(--glow);
+      background: rgba(0,204,255,.10);
+    }
 
-        #track-text { 
-            font-family: 'Orbitron', monospace; 
-            color: var(--automotive-blue); 
-            font-size: 1.3rem; 
-            text-shadow: var(--automotive-glow); 
-            z-index: 2; white-space: nowrap; 
-        }
-        #status-text { 
-            font-family: 'Orbitron', monospace; 
-            font-size: 0.8rem; 
-            color: #0088aa; 
-            margin-top: 5px; 
-            z-index: 2; 
-            letter-spacing: 2px; 
-        }
+    .video-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .vcard{
+      grid-column: span 4;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 18px;
+      overflow:hidden;
+      background: rgba(10,12,16,.55);
+      transition:.18s ease;
+    }
+    .vcard:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+      border-color: rgba(0,204,255,.30);
+    }
+    .vthumb{
+      position:relative;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+    .vthumb iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      border:0;
+    }
+    .vmeta{
+      padding: 12px 12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .vmeta .tag{
+      font-size: 11px;
+      font-weight:800;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      color: rgba(233,238,246,.9);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,204,255,.22);
+      background: rgba(0,204,255,.08);
+    }
+    .vmeta button{
+      border:0;
+      background: transparent;
+      color: rgba(233,238,246,.88);
+      cursor:pointer;
+      font-weight:800;
+      letter-spacing:.3px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .vmeta button:hover{box-shadow: var(--glow); border-color: rgba(0,204,255,.30);}
 
-        .chrome-btn {
-            width: 50px; height: 50px; border-radius: 50%; 
-            background: linear-gradient(145deg, #444, #111); 
-            border: 2px solid #555; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.1s;
-            color: var(--text-main); 
-        }
-        .chrome-btn:active { transform: scale(0.95); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
-        .chrome-btn.active-shuffle { 
-            box-shadow: 0 0 15px var(--automotive-blue); 
-            border-color: var(--automotive-blue); 
-            color: var(--automotive-blue);
-        }
-        .brand { position: absolute; top: 8px; left: 25px; color: var(--automotive-blue); font-size: 0.6rem; font-style: italic; font-weight: bold; letter-spacing: 1px; text-shadow: 0 0 5px rgba(0, 204, 255, 0.4); }
+    /* Quiz */
+    .quiz-wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    .quiz-box h3{margin:0 0 8px}
+    .quiz-box p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+    .quiz-ui{
+      border-top:1px solid rgba(255,255,255,.06);
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+    .q-top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 10px;
+      color: rgba(233,238,246,.9);
+      font-weight:800;
+    }
+    .bar{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(0,204,255,.95), rgba(255,59,59,.85));
+      box-shadow: var(--glow);
+      transition: width .25s ease;
+    }
+    .q{
+      font-size: 16px;
+      line-height:1.4;
+      margin: 12px 0 10px;
+      font-weight:800;
+      letter-spacing:-.2px;
+    }
+    .opts{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .opt{
+      text-align:left;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,16,.55);
+      cursor:pointer;
+      transition:.18s ease;
+      font-weight:700;
+      color: rgba(233,238,246,.92);
+    }
+    .opt:hover{box-shadow: var(--glow); border-color: rgba(0,204,255,.28); transform: translateY(-1px);}
+    .opt.correct{border-color: rgba(0,204,255,.45); box-shadow: var(--glow);}
+    .opt.wrong{border-color: rgba(255,59,59,.45); box-shadow: var(--glow-red);}
+    .explain{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.55;
+      display:none;
+    }
+    .quiz-actions{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;
+    }
 
-        /* --- CONTROLES DINÂMICOS --- */
-        
-        #progress-deck {
-            position: absolute; top: 0; left: 0; right: 0; 
-            height: 20px; background: #000; border-radius: 12px 12px 0 0;
-            display: flex; align-items: center; padding: 0 25px;
-            border: 2px solid #333; border-bottom: none;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-        }
+    /* Downloads */
+    .dl-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .dl-card{
+      grid-column: span 4;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,16,.55);
+      border-radius: 18px;
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      transition:.18s ease;
+    }
+    .dl-card:hover{transform: translateY(-2px); box-shadow: var(--glow); border-color: rgba(0,204,255,.28);}
+    .dl-card b{font-size: 14px}
+    .dl-card p{margin:0; color:var(--muted); font-size: 13px; line-height:1.5}
+    .dl-card .btn{border-radius: 14px; width:100%}
 
-        .progress-slider, #volume-slider {
-            -webkit-appearance: none; appearance: none;
-            width: 100%; height: 5px; background: #444; 
-            border-radius: 5px; cursor: pointer; margin: 0;
-        }
+    /* Partners */
+    .partner-grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .partner{
+      grid-column: span 4;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,16,.55);
+      border-radius: 22px;
+      padding: 16px;
+      display:flex;
+      gap:12px;
+      transition:.18s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .partner:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 180px at 20% 0%, rgba(0,204,255,.18), transparent 60%);
+      opacity:.55; pointer-events:none;
+    }
+    .partner > *{position:relative; z-index:1}
+    .partner:hover{transform: translateY(-2px); box-shadow: var(--glow); border-color: rgba(0,204,255,.28);}
+    .partner img{width:56px; height:56px; object-fit:contain; border-radius: 14px; background: rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.08)}
+    .partner .meta{display:flex; flex-direction:column; gap:6px}
+    .partner .meta b{font-size: 14px}
+    .partner .meta span{color:var(--muted); font-size: 13px; line-height:1.45}
+    .coupon{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family: Orbitron, monospace;
+      font-weight:800;
+      letter-spacing:.8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(0,204,255,.35);
+      background: rgba(0,204,255,.08);
+      width: fit-content;
+    }
 
-        .progress-slider::-webkit-slider-thumb, #volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none;
-            width: 15px; height: 15px; border-radius: 50%;
-            background: var(--automotive-blue); 
-            cursor: pointer;
-            box-shadow: var(--automotive-glow);
-        }
+    /* Donation */
+    .donation-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    .don-panel{
+      padding: 18px;
+    }
+    .don-visual{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(520px 220px at 20% 20%, rgba(0,204,255,.18), transparent 60%),
+        radial-gradient(520px 220px at 80% 20%, rgba(255,59,59,.12), transparent 60%),
+        rgba(10,12,16,.55);
+      padding: 18px;
+      min-height: 230px;
+      position:relative;
+      overflow:hidden;
+    }
+    .garage-door{
+      position:absolute; left:0; right:0; bottom:-30px;
+      height: 160px;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0, rgba(255,255,255,.06) 18px, rgba(0,0,0,.0) 18px, rgba(0,0,0,.0) 30px);
+      border-top: 1px solid rgba(255,255,255,.10);
+      transform: translateY(0);
+      animation: door 4.5s ease-in-out infinite;
+      opacity:.7;
+    }
+    @keyframes door{
+      0%,100%{transform: translateY(0)}
+      50%{transform: translateY(-28px)}
+    }
+    .don-visual h3{margin:0 0 6px}
+    .don-visual p{margin:0; color:var(--muted); font-size: 13px; line-height:1.55; max-width: 62ch}
+    .tiers{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .tier{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 12px;
+      transition:.18s ease;
+    }
+    .tier:hover{box-shadow: var(--glow); border-color: rgba(0,204,255,.28); transform: translateY(-1px);}
+    .tier b{display:block}
+    .tier span{display:block; color:var(--muted); font-size: 12px; margin-top: 4px; line-height:1.45}
+    .pix-box{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .pix-key{
+      font-family: Orbitron, monospace;
+      font-size: 12px;
+      letter-spacing:.8px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,16,.55);
+      flex: 1 1 320px;
+      word-break: break-all;
+    }
+    .msg{
+      color: rgba(233,238,246,.92);
+      font-weight:800;
+      font-size: 12px;
+      opacity:0;
+      transform: translateY(4px);
+      transition:.18s ease;
+    }
+    .msg.show{opacity:1; transform: translateY(0);}
 
-        .time-info {
-            position: absolute; bottom: 5px; right: 5px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7rem; color: #0088aa; 
-            z-index: 2;
-        }
+    /* Radio Dock — 90/00s head unit */
+    .radio-dock{
+      position:fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 12px;
+      z-index: 50;
+      max-width: 1120px;
+      margin: 0 auto;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(180deg, rgba(30,30,34,.92), rgba(10,12,16,.92));
+      box-shadow: 0 25px 70px rgba(0,0,0,.70);
+      overflow:hidden;
+    }
+    .radio-shell{
+      display:grid;
+      grid-template-columns: 1.2fr .85fr;
+      gap: 0;
+      align-items:stretch;
+    }
+    .face-left{
+      padding: 14px 14px 12px;
+      border-right: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(520px 180px at 10% 0%, rgba(0,204,255,.10), transparent 60%),
+        rgba(0,0,0,.25);
+      position:relative;
+    }
+    .face-right{
+      padding: 14px;
+      background:
+        radial-gradient(520px 180px at 100% 0%, rgba(255,59,59,.10), transparent 60%),
+        rgba(0,0,0,.18);
+      position:relative;
+    }
+    .unit-top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom: 10px;
+    }
+    .unit-badge{
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .unit-badge b{
+      font-family: Orbitron, monospace;
+      letter-spacing: 1.2px;
+      font-size: 13px;
+    }
+    .unit-badge span{
+      font-size: 11px; color: rgba(233,238,246,.72);
+      letter-spacing:.6px; text-transform:uppercase;
+    }
+    .lcd{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(0,0,0,.92), rgba(0,0,0,.75));
+      padding: 10px 12px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.6);
+      position:relative;
+      overflow:hidden;
+    }
+    .lcd:before{
+      content:"";
+      position:absolute; inset:-40px;
+      background: radial-gradient(240px 120px at 20% 30%, rgba(0,204,255,.12), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .lcd .row{
+      position:relative;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .track{
+      font-family: Orbitron, monospace;
+      font-weight: 800;
+      letter-spacing: .9px;
+      font-size: 12px;
+      color: rgba(233,238,246,.92);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 62%;
+    }
+    .time{
+      font-family: Orbitron, monospace;
+      font-weight: 800;
+      letter-spacing: .9px;
+      font-size: 12px;
+      color: rgba(233,238,246,.88);
+      display:flex; gap:8px; align-items:center;
+      white-space:nowrap;
+    }
+    .vu{
+      display:flex; gap:4px; align-items:flex-end;
+      height: 16px;
+      margin-top: 8px;
+      position:relative;
+    }
+    .vu i{
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: rgba(0,204,255,.35);
+      box-shadow: 0 0 10px rgba(0,204,255,.20);
+      transform-origin: bottom;
+      animation: vu 900ms ease-in-out infinite;
+      opacity: .9;
+    }
+    .vu i:nth-child(2){animation-delay: -120ms}
+    .vu i:nth-child(3){animation-delay: -260ms}
+    .vu i:nth-child(4){animation-delay: -80ms}
+    .vu i:nth-child(5){animation-delay: -200ms}
+    .vu i:nth-child(6){animation-delay: -320ms}
+    .vu i:nth-child(7){animation-delay: -150ms}
+    .vu i:nth-child(8){animation-delay: -280ms}
+    @keyframes vu{
+      0%,100%{transform: scaleY(.45); opacity:.55}
+      40%{transform: scaleY(2.6); opacity:1}
+      70%{transform: scaleY(1.2); opacity:.85}
+    }
+    .progress{
+      display:flex; align-items:center; gap:10px;
+      margin-top: 10px;
+    }
+    input[type="range"]{
+      width:100%;
+      accent-color: var(--automotive-blue);
+    }
 
-        /* [CORREÇÃO FINAL] Controle de Volume Vertical */
-        .volume-ctrl {
-            position: absolute; 
-            right: -20px; /* Posição à direita do painel */
-            top: 50%; /* Centraliza o controle verticalmente na altura do rádio */
-            transform: translateY(-50%); /* Ajuste fino para centralizar */
-            
-            /* MUDA a direção do flexbox para coluna (vertical) */
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 5px;
-            background: none; 
-            padding: 0;
-            z-index: 10;
-        }
-        .volume-ctrl label {
-            color: var(--automotive-blue); 
-            font-size: 0.9rem;
-        }
-        #volume-slider {
-            /* GIRA o slider para ficar vertical */
-            width: 60px;
-            height: 4px;
-            transform: rotate(270deg); /* Rotação crucial para vertical */
-            margin: 15px 0; /* Espaçamento para não tocar outros elementos */
-        }
+    .controls{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-top: 12px;
+    }
+    .btn-ctrl{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,12,16,.55);
+      color: rgba(233,238,246,.95);
+      padding: 12px 12px;
+      border-radius: 16px;
+      cursor:pointer;
+      transition:.16s ease;
+      font-weight:800;
+      user-select:none;
+      min-width: 52px;
+    }
+    .btn-ctrl:hover{box-shadow: var(--glow); border-color: rgba(0,204,255,.28); transform: translateY(-1px);}
+    .btn-ctrl.red:hover{box-shadow: var(--glow-red); border-color: rgba(255,59,59,.28);}
+    .btn-ctrl.small{padding: 10px 10px; min-width: 48px}
+    .btn-ctrl.active{box-shadow: var(--glow); border-color: rgba(0,204,255,.35);}
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .nav-links { display: none; }
-            
-            /* Ajuste para mobile do Player */
-            .radio-dock { width: 100%; bottom: 0; max-width: none; height: 120px; padding-top: 15px; }
-            .faceplate { border-radius: 0; border: none; border-top: 1px solid #333; height: 105px; padding: 0 10px; }
-            #progress-deck { height: 15px; border-radius: 0; padding: 0 10px; }
+    /* Right side knobs / volume */
+    .knobs{
+      display:flex;
+      gap: 12px;
+      align-items:stretch;
+      height:100%;
+    }
+    .knob{
+      flex:1;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      background: rgba(10,12,16,.55);
+      padding: 12px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .knob h4{
+      margin:0;
+      font-family: Orbitron, monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: rgba(233,238,246,.9);
+    }
+    .knob p{margin:0; color: var(--muted); font-size: 12px; line-height:1.5}
+    .vol{
+      display:flex; align-items:center; justify-content:center;
+      height: 92px;
+      position:relative;
+    }
+    #volume-slider{
+      width: 110px;
+      transform: rotate(270deg);
+    }
+    .vol .label{
+      position:absolute;
+      bottom: -2px;
+      left: 0; right:0;
+      text-align:center;
+      font-family: Orbitron, monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: rgba(233,238,246,.75);
+    }
 
-            .chrome-btn { width: 40px; height: 40px; }
-            .display-screen { margin: 0 10px; height: 60px; }
-            #track-text { font-size: 0.9rem; }
-
-            .volume-ctrl { 
-                right: 5px; 
-                top: 50%; 
-                transform: translateY(-50%); 
-            }
-            #volume-slider { width: 40px; }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; }
+      .radio-shell{grid-template-columns: 1fr;}
+      .face-left{border-right:0; border-bottom: 1px solid rgba(255,255,255,.10);}
+      .quiz-wrap{grid-template-columns: 1fr;}
+      .donation-grid{grid-template-columns: 1fr;}
+      .vcard{grid-column: span 6;}
+      .dl-card{grid-column: span 6;}
+      .partner{grid-column: span 6;}
+      .nav-links{display:none;} /* simples e limpo no mobile */
+    }
+    @media (max-width: 560px){
+      .vcard{grid-column: span 12;}
+      .dl-card{grid-column: span 12;}
+      .partner{grid-column: span 12;}
+      .tiers{grid-template-columns: 1fr;}
+    }
+  </style>
 </head>
+
 <body>
-
-    <header>
-        <div class="nav-container">
-            <img src="assets/logo_frank.png" alt="Garagem do Frank" class="logo-img">
-            <ul class="nav-links">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#ipanema">Saga Ipanema</a></li>
-                <li><a href="#telefrank">Telefrank</a></li>
-                <li><a href="#vlogs">Frankverso</a></li>
-                <li><a href="#parceiros">Parceiros</a></li>
-            </ul>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#inicio">
+        <img src="assets/logo_frank.png" alt="Logo A Garagem do Frank">
+        <div class="t">
+          <b>A Garagem do Frank</b>
+          <span>Turbo • Performance • Cultura gearhead</span>
         </div>
-    </header>
+      </a>
 
-    <section id="inicio">
-        <div class="container" style="text-align: center;">
-            <h1>GARAGEM DO <span>FRANK</span></h1>
-            <p class="tagline">"Turbinando motores e restaurando histórias!"</p>
+      <div class="nav-links" aria-label="Menu principal">
+        <a href="#videos">Vídeos</a>
+        <a href="#projetos">Projetos Sociais</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#downloads">Downloads</a>
+        <a href="#historia">História do Frank</a>
+        <a href="#parceiros">Parceiros</a>
+        <a href="#apoie">Apoie</a>
+      </div>
 
-            <div class="pix-container">
-                <h3 style="color: var(--turbo-red); font-size: 1.5rem; margin-bottom: 10px;">⚡ APOIE O PROJETO</h3>
-                <p style="color: #ccc; margin-bottom: 20px;">Todo valor vai para peças dos Projetos Solidários e ferramentas da oficina.</p>
-                
-                <div class="pix-mask">Chave Aleatória: ********************</div>
-                
-                <button class="btn-action" onclick="copiarPix()">
-                    <span style="font-size: 1.5rem;">📋</span> COPIAR CHAVE PIX
-                </button>
-                <p class="msg-success" id="msg-copy">✅ CHAVE COPIADA! ABRA SEU APP DO BANCO.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="ipanema">
-        <div class="container">
-            <h2>🍿 Maratona: Saga Ipanema</h2>
-            <div class="grid" id="grid-ipanema"></div>
-        </div>
-    </section>
-
-    <section id="telefrank">
-        <div class="container">
-            <h2>📺 Telefrank 2000</h2>
-            <div class="grid" id="grid-telefrank"></div>
-        </div>
-    </section>
-
-    <section id="vlogs">
-        <div class="container">
-            <h2>📹 Frankverso</h2>
-            <div class="grid" id="grid-vlogs"></div>
-        </div>
-    </section>
-
-    <section id="parceiros">
-        <div class="container">
-            <h2>🤝 Quem Fortalece</h2>
-            <div class="grid" id="grid-parceiros"></div>
-        </div>
-    </section>
-
-    <footer class="site-footer">
-        <img src="assets/logo_frank.png" alt="Logo" class="footer-logo">
-        <p class="copyright">© 2025 Garagem do Frank. Todos os direitos reservados. by Frank Design</p>
-        <div class="social-footer">
-            <a href="https://youtube.com/@agaragemdofrank" target="_blank">YouTube</a>
-            <a href="https://tiktok.com/@agaragemdofrank" target="_blank">TikTok</a>
-        </div>
-    </footer>
-
-    <div class="radio-dock">
-        <div id="progress-deck">
-            <input type="range" id="time-slider" min="0" max="100" value="0" class="progress-slider">
-        </div>
-        
-        <div class="faceplate">
-            <span class="brand">.</span> 
-            
-            <div class="ctrl-group">
-                <button class="chrome-btn" id="shuffle-btn" onclick="toggleShuffle()" title="Aleatório">🔀</button>
-                <button class="chrome-btn" onclick="prevTrack()">⏮</button>
-            </div>
-            
-            <div class="display-screen">
-                <div class="viz-bar"></div>
-                <div id="track-text">CD LOADING...</div>
-                <div id="status-text">MP3 • TRACK 01</div>
-                <div class="time-info">
-                    <span id="current-time">0:00</span> / <span id="total-duration">0:00</span>
-                </div>
-            </div>
-            
-            <div class="ctrl-group">
-                <button class="chrome-btn" onclick="playPause()" id="play-btn" style="font-size: 1.5rem;">▶</button>
-                <button class="chrome-btn" onclick="nextTrack()">⏭</button>
-            </div>
-
-            <div class="volume-ctrl">
-                <label for="volume-slider">.</label>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" title="Volume">
-            </div>
-
-        </div>
+      <div class="nav-cta">
+        <a class="btn" href="https://www.youtube.com/@AgaragemdoFrank" target="_blank" rel="noopener">
+          <span class="dot"></span> YouTube
+        </a>
+        <a class="btn red" href="https://www.tiktok.com" target="_blank" rel="noopener">
+          <span class="dot"></span> TikTok
+        </a>
+      </div>
     </div>
-    
-    <audio id="audio-player"></audio>
-    <script>
-        // --- DADOS (MANTIDOS) ---
-        const ipanema = ["k1W_uXQYhFU", "SrbQp3ZjvRI", "DB5vivJjk1I", "45ByI0DDfnQ", "teMaoWSQXaE", "2bGWAbI_qLo", "Bj9cYppd5m8", "axI5AeHr0YA", "dy8owmeTpBQ", "kZSQE9U12cA", "kMEBiejJeSQ", "f9f_JZOpUjQ", "4FH3wLXfhAo", "gECG-_Hh7UQ"];
-        const telefrank = ["lbU2erkgiQs", "kRaGk9expGs", "oqob1_CAR_0", "EKkKTXMwJeQ", "sJvVhZnxwuE", "VZw-XfclqLk", "STDCVVDgqtA", "5U7-jKe2JTI"];
-        const vlogs = ["tSlqP2pUS3Q", "C97W4cCfeFc", "esi1b-6MkMM", "pHFJkZRBJ04", "vmv2yKcRVTA", "9lBgV4v6DJQ", "p4R4XjYGzm0"];
+  </header>
 
-        const parceiros = [
-            {name: "Nagazava Tintas", desc: "Tintas automotivas e residenciais", cupom: "FRANK15", img: "nagazava.png", link: "https://wa.me/554198442305", btn: "WhatsApp"},
-            {name: "Malaguty Bikes", desc: "Bicicletas e Peças", cupom: "FRANK10", img: "malaguty.png", link: "https://wa.me/554130538471", btn: "WhatsApp"},
-            {name: "Gold Lyon Pneus", desc: "Pneus e Rodas", cupom: "Parceiro Ouro", img: "goldlyon.png", link: "https://instagram.com/goldlyonpneus", btn: "Instagram"},
-            {name: "Retífica Silva", desc: "Cabeçotes Top", cupom: "Serviço Top", img: "silva.png", link: "https://wa.me/554187792090", btn: "WhatsApp"},
-            {name: "Fera Escapamentos", desc: "Original, Inox, mestre da TIG", cupom: "Ronco Forte", img: "fera.png", link: "https://wa.me/554192154371", btn: "WhatsApp"}
-        ];
+  <main id="inicio" class="hero">
+    <div class="container hero-grid">
+      <div class="card hero-main">
+        <div class="kicker">
+          <span class="pill">GARAGE EXPERIENCE</span>
+          <span style="color:rgba(233,238,246,.78)">Rádio • Vídeos • Quiz • Downloads</span>
+        </div>
+        <h1>Turbo, projetos reais e cultura gearhead — do meu bairro pra sua tela.</h1>
+        <p>
+          Aqui você encontra a trilha sonora do <b>LIL FRANK</b>, vídeos organizados por tema, quiz automotivo pra testar conhecimento
+          e um espaço de apoio aos parceiros que fazem a garagem girar. Tudo feito por uma pessoa só — mão na graxa, câmera na mão e coração no acelerador.
+        </p>
 
-        // --- RENDERIZADORES (MANTIDOS) ---
-        function renderVideos(containerId, lista) {
-            const container = document.getElementById(containerId);
-            lista.forEach(id => {
-                container.innerHTML += `
-                    <div class="card">
-                        <div class="video-wrap">
-                            <iframe src="https://www.youtube.com/embed/${id}" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-tag">ASSISTIR AGORA</div>
-                        </div>
-                    </div>`;
-            });
+        <div class="hero-actions">
+          <a class="btn primary" href="#radio">▶ Dar play na garagem</a>
+          <a class="btn" href="#videos">Ver vídeos</a>
+          <a class="btn red" href="#apoie">Apoiar o projeto</a>
+        </div>
+      </div>
+
+      <div class="card hero-side">
+        <div class="mini">
+          <h3>O que tem aqui</h3>
+          <p>Projetos turbo, dicas pra não ficar refém de mecânico, cultura de rua, música autoral e um cantinho pros apoiadores.</p>
+          <div class="social-row">
+            <a class="chip" href="#quiz">🧠 Quiz Automotivo</a>
+            <a class="chip" href="#downloads">📄 PDFs & Manuais</a>
+            <a class="chip" href="#parceiros">🤝 Parceiros</a>
+          </div>
+        </div>
+        <div class="mini">
+          <h3>Recado rápido</h3>
+          <p>Se um vídeo estiver fora de ordem, eu organizei por categorias e adicionei um sistema simples pra você ajustar listas por tema no código.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="partner-strip">
+      <div class="container strip-inner">
+        <div class="strip-label"><span class="spark"></span> Apoiadores</div>
+        <div style="flex:1; overflow:hidden;">
+          <div class="logo-marquee" id="logo-marquee">
+            <!-- duplicado via JS pra “infinito” -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- VIDEOS -->
+  <section id="videos">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Vídeos (organizados)</h2>
+          <p>Escolha um tema e mergulhe. (Sem parâmetros extras no embed — só o ID do YouTube.)</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="tabs" role="tablist" aria-label="Categorias de vídeos">
+          <div class="tab active" data-tab="telefrank">Telefrank</div>
+          <div class="tab" data-tab="vlogs">Frankverso</div>
+          <div class="tab" data-tab="ipanema">Projetos (Saga/Construções)</div>
+        </div>
+
+        <div class="video-grid" id="video-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS SOCIAIS (antiga Saga Ipanema no menu, agora ampliado) -->
+  <section id="projetos">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Projetos sociais</h2>
+          <p>
+            Carro também pode ser ferramenta de transformação: conhecimento, oportunidade e comunidade.
+            Aqui é onde a garagem vira impacto.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="panel span-8">
+          <h3 style="margin:0 0 8px">O que você vai ver aqui</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
+            • Ações e campanhas com transparência<br>
+            • Projetos mecânicos com propósito<br>
+            • Metas e prestação de contas (quando houver)<br>
+            • Como apoiar sem “pena”: apoiando uma construção real
+          </p>
+        </div>
+        <div class="panel span-4">
+          <h3 style="margin:0 0 8px">Quer somar?</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
+            Se você é empresa, mecânico, loja ou entusiasta e quer apoiar um projeto social, me chama pela área de parceiros.
+          </p>
+          <div style="margin-top:10px">
+            <a class="btn" href="#parceiros">🤝 Ver parceiros</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Quiz Automotivo</h2>
+          <p>5 perguntas aleatórias por rodada. Mistura de básicas e avançadas (motores, marcas, filmes e cultura gearhead).</p>
+        </div>
+      </div>
+
+      <div class="quiz-wrap">
+        <div class="panel quiz-box">
+          <h3 style="margin:0 0 8px">Modo “Pista”</h3>
+          <p>Responda, veja a explicação e acompanhe seu placar. Quer mais difícil? É só jogar de novo — as combinações mudam.</p>
+
+          <div class="quiz-actions">
+            <button class="btn" id="btn-start-quiz"><span class="dot"></span> Iniciar quiz</button>
+            <button class="btn red" id="btn-restart-quiz"><span class="dot"></span> Reiniciar</button>
+          </div>
+          <p style="margin-top:10px; color:var(--muted); font-size:12px">Dica: dá pra aumentar o banco de perguntas editando o array <b>questionBank</b> no final do arquivo.</p>
+        </div>
+
+        <div class="panel">
+          <div class="quiz-ui">
+            <div class="q-top">
+              <div>Questão <span id="q-n">0</span>/5</div>
+              <div>Pontos: <span id="q-score">0</span></div>
+            </div>
+            <div class="bar"><div id="q-bar"></div></div>
+
+            <div class="q" id="q-text">Clique em “Iniciar quiz”.</div>
+            <div class="opts" id="q-opts"></div>
+            <div class="explain" id="q-explain"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Downloads (PDFs)</h2>
+          <p>Modelos iniciais — depois é só substituir os arquivos na pasta <b>/downloads</b> mantendo o nome.</p>
+        </div>
+      </div>
+
+      <div class="dl-grid">
+        <div class="dl-card">
+          <b>Manual de Torque (modelo)</b>
+          <p>Um placeholder pra você substituir por tabelas reais de torque e apertos.</p>
+          <a class="btn" href="downloads/modelo_manual_torque.pdf" download>⬇️ Baixar PDF</a>
+        </div>
+        <div class="dl-card">
+          <b>Esquema Elétrico (modelo)</b>
+          <p>Estrutura de arquivo para diagramas e esquemas.</p>
+          <a class="btn" href="downloads/modelo_esquema_eletrico.pdf" download>⬇️ Baixar PDF</a>
+        </div>
+        <div class="dl-card">
+          <b>Checklist Pit Stop (modelo)</b>
+          <p>Checklist simples de inspeção pré-rolê / pré-pista.</p>
+          <a class="btn" href="downloads/modelo_checklist_pitstop.pdf" download>⬇️ Baixar PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTÓRIA -->
+  <section id="historia">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>História do Frank</h2>
+          <p>Uma garagem é feita de barulho, graxa e história. Essa é a minha.</p>
+        </div>
+      </div>
+
+      <div class="panel" style="padding:18px">
+        <div style="max-width: 78ch; color: rgba(233,238,246,.92); line-height:1.7">
+          <h3 style="margin:0 0 10px">🏁 A História do Frank</h3>
+
+          <p><b>Onde tudo começou</b><br>
+          O Frank nasceu antes mesmo de existir um nome para ele.</p>
+
+          <p>Sou Jhonatan, do bairro Guaíra, em Curitiba. Filho de uma família humilde, cresci em um contexto onde as expectativas sobre o futuro eram sempre baixas. No meu primeiro dia de vida, fui socorrido às pressas e levado para a UTI de outro hospital — dentro de um Fusca branco. Uma coincidência curiosa, ou talvez não: anos depois, aos 16 anos, esse mesmo modelo seria meu primeiro carro.</p>
+
+          <p>Minha mãe costuma dizer que minha paixão por motores começou ali, dentro daquele Fusca, enquanto as batidas do meu coração prematuro se misturavam ao ronco do motor boxer 1300. Pode soar poético, mas para mim sempre fez sentido.</p>
+
+          <p>A infância foi difícil, marcada pela pobreza e pelo olhar constante de quem acreditava que eu “não seria ninguém”. Recentemente, ao ser diagnosticado com Altas Habilidades e Superdotação, muita coisa se encaixou: o menino que aprendeu a falar cedo, que decorava o nome dos carros na rua, que aprendeu a ler para decifrar placas de trânsito. Hoje entendo que sempre usei minha neurodivergência como ferramenta de aprendizado.</p>
+
+          <p><b>Direito, motores e o conflito</b><br>
+          Sempre fui um excelente aluno. Acabei seguindo o caminho do Direito porque, na época, parecia obrigatório: fazer faculdade para “ser alguém”. Me formei, construí carreira e atuo há mais de 10 anos como advogado criminal. Sou grato ao que o Direito me proporcionou — ele me deu estabilidade e recursos. Mas nunca me deu pertencimento.</p>
+
+          <p>O conflito não foi técnico, foi moral. Chegou um momento em que já não me sentia confortável exercendo a profissão da forma como ela se apresentava. Enquanto isso, os carros sempre estiveram ali, como um refúgio silencioso. Um dos carros mais marcantes da minha vida foi um Opala Diplomata coupé 1988, duas portas — foi nele que aprendi a dirigir. Ao longo da vida, já tive mais de 25 carros e motos. Motores sempre foram mais do que objetos: eram linguagem, identidade, liberdade.</p>
+
+          <p><b>O nascimento da Garagem do Frank</b><br>
+          A virada aconteceu quando comprei um Santana e acabei sendo enganado por mecânicos. Aquilo me fez desistir por um tempo, até que resolvi fazer algo simples e radical: colocar a mão na graxa. Foi ali que o Frank surgiu. Costumo brincar que, na verdade, quem sempre existiu foi o Frank — e que o Jhonatan era apenas o personagem advogado.</p>
+
+          <p>A ideia da Garagem do Frank sempre foi clara: <b>conhecimento liberta</b>. Mostrar que ninguém precisa viver refém de mecânico, que é possível entender, aprender, errar e evoluir. Mostrar projetos diferentes, reais, sem maquiagem.</p>
+
+          <p><b>LIL FRANK</b><br>
+          O LIL FRANK nasceu quase por acaso. Depois de levar um strike por direitos autorais em um vídeo, resolvi testar uma música simples feita com IA. Gostei. Fiz outra. E mais outra. Hoje são dois álbuns completos — e a música virou parte da identidade do projeto: ritmo, vivência e criatividade, do mesmo jeito que os carros — aprendendo, testando e evoluindo.</p>
+
+          <p><b>Comunidade</b><br>
+          A Garagem do Frank não é só sobre carros. É sobre acolhimento e compreensão. Para mim, ser gearhead é o cara que, ao ver uma cor diferente num catálogo, imagina essa cor num carro — não na parede da casa. É o cara que, se o Brad Pitt passar dirigindo um carro raro, nem percebe que era o Brad Pitt. É sobre o motor, não sobre o status.</p>
+
+          <p><b>O futuro</b><br>
+          Eu imagino a Garagem do Frank com mais parceiros, mais projetos pessoais e projetos sociais reais acontecendo. Com pelo menos 10 mil inscritos no YouTube e 10 mil seguidores no TikTok — e um legado de gente que aprendeu, se libertou e percebeu que também é capaz de construir algo com as próprias mãos.</p>
+
+          <p style="margin-bottom:0"><b>Você é bem-vindo na garagem.</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCEIROS -->
+  <section id="parceiros">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Parceiros e apoiadores</h2>
+          <p>Quem cola com a garagem aparece. Cupom, contato e destaque — do jeito certo.</p>
+        </div>
+      </div>
+
+      <div class="partner-grid" id="partner-grid"></div>
+    </div>
+  </section>
+
+  <!-- APOIE / DOAÇÃO -->
+  <section id="apoie">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Apoie a Garagem</h2>
+          <p>Não é sobre pena — é sobre <b>combustível</b>. Você ajuda a manter os projetos rodando e ainda fortalece a cultura gearhead.</p>
+        </div>
+      </div>
+
+      <div class="donation-grid">
+        <div class="don-visual">
+          <h3 style="margin:0 0 6px">⛽ Escolha seu combustível</h3>
+          <p>Doa como quem coloca gasolina pra estrada continuar. Cada apoio vira ferramenta, peça, deslocamento, tempo de edição — e mais projetos sociais.</p>
+
+          <div class="tiers">
+            <div class="tier"><b>5 reais</b><span>“Gasolina da esquina”</span></div>
+            <div class="tier"><b>15 reais</b><span>“Óleo & filtro”</span></div>
+            <div class="tier"><b>50 reais</b><span>“Peça do projeto”</span></div>
+          </div>
+
+          <div class="garage-door" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel don-panel">
+          <h3 style="margin:0 0 8px">Pix direto (rápido)</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6">
+            Copie a chave, cole no app do seu banco e manda ver. Se quiser, depois volta no quiz e tenta “zerar” a rodada 😄
+          </p>
+
+          <div class="pix-box">
+            <div class="pix-key" id="pix-key">df31ecaa-aebe-4da0-a012-8b6471e919e6</div>
+            <button class="btn red" id="btn-copy-pix"><span class="dot"></span> Copiar Pix</button>
+            <div class="msg" id="pix-msg">Chave copiada! 🚀</div>
+          </div>
+
+          <div style="margin-top:14px">
+            <h4 style="margin:0 0 8px; font-family:Orbitron,monospace; letter-spacing:1px">Pit Stop</h4>
+            <div class="bar" title="Progresso simbólico (você pode ligar isso a metas reais depois)."><div id="support-bar" style="width:42%"></div></div>
+            <p style="margin:8px 0 0; color:var(--muted); font-size:12px; line-height:1.5">
+              Meta do mês: ferramenta/peça de projeto + deslocamento pra gravação. (Você pode editar essa meta no HTML quando quiser.)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RADIO DOCK -->
+  <div id="radio" class="radio-dock" role="region" aria-label="Rádio da Garagem">
+    <div class="radio-shell">
+      <div class="face-left">
+        <div class="unit-top">
+          <div class="unit-badge">
+            <b>FRANKTURBO • HEAD UNIT</b>
+            <span>Garage Sound • 90/00s</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn-ctrl small" id="btn-shuffle" title="Shuffle">🔀</button>
+            <button class="btn-ctrl small red" id="btn-mute" title="Mute">🔇</button>
+          </div>
+        </div>
+
+        <div class="lcd" aria-live="polite">
+          <div class="row">
+            <div class="track" id="track-title">LIL. FRANK — pronto pra ligar</div>
+            <div class="time"><span id="current-time">0:00</span><span style="opacity:.55">/</span><span id="total-duration">0:00</span></div>
+          </div>
+          <div class="vu" id="vu">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+
+        <div class="progress">
+          <input id="time-slider" type="range" min="0" max="100" value="0" />
+        </div>
+
+        <div class="controls">
+          <button class="btn-ctrl" id="btn-prev" title="Anterior">⏮</button>
+          <button class="btn-ctrl red" id="btn-play" title="Play/Pause">▶</button>
+          <button class="btn-ctrl" id="btn-next" title="Próxima">⏭</button>
+          <button class="btn-ctrl small" id="btn-skip15" title="Avançar 15s">+15s</button>
+        </div>
+      </div>
+
+      <div class="face-right">
+        <div class="knobs">
+          <div class="knob">
+            <div>
+              <h4>MODE</h4>
+              <p>Rádio da garagem. Playlist local (<span style="color:rgba(233,238,246,.9); font-weight:800">assets/radio</span>).</p>
+            </div>
+            <button class="btn-ctrl small" id="btn-autoplay" title="Autoplay">AUTO</button>
+          </div>
+
+          <div class="knob">
+            <div>
+              <h4>VOLUME</h4>
+              <p>Vertical, estilo head unit.</p>
+            </div>
+            <div class="vol">
+              <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.5"/>
+              <div class="label" id="vol-label">50%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-player"></audio>
+
+  <script>
+    // ------------------------
+    // 1) DATA: vídeos
+    // ------------------------
+    const videos = {
+      // Você pode reorganizar a ordem aqui (IDs do YouTube)
+      telefrank: ["lbU2erkgiQs", "kRaGk9expGs", "oYc0B6uO_2Q", "sJvVhZnxwuE", "VZw-XfclqLk", "STDCVVDgqtA", "5U7-jKe2JTI"],
+      vlogs:     ["tSlqP2pUS3Q", "C97W4cCfeFc", "esi1b6cM1uM", "pHFJkZRBJ04", "vmv2yKcRVTA", "9lBgV4v6DJQ", "p4R4XjYGzm0"],
+      ipanema:   ["k1W_uXQYhFU", "SrbQp3ZjvRI", "DB5DkNnADyA", "kMEBiejJeSQ", "f9f_JZOpUjQ", "4FH3wLXfhAo", "gECG-_Hh7UQ"]
+    };
+
+    const tabLabels = {
+      telefrank: "TELEFRANK",
+      vlogs: "FRANKVERSO",
+      ipanema: "PROJETOS"
+    };
+
+    const videoGrid = document.getElementById("video-grid");
+    function renderVideoTab(key){
+      const list = videos[key] || [];
+      videoGrid.innerHTML = "";
+      list.forEach((id) => {
+        const el = document.createElement("div");
+        el.className = "vcard";
+        el.innerHTML = \`
+          <div class="vthumb">
+            <iframe src="https://www.youtube.com/embed/\${id}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="vmeta">
+            <div class="tag">\${tabLabels[key] || "ASSISTIR"}</div>
+            <button onclick="window.open('https://www.youtube.com/watch?v=\${id}', '_blank')">Abrir</button>
+          </div>
+        \`;
+        videoGrid.appendChild(el);
+      });
+    }
+
+    document.querySelectorAll(".tab").forEach(t => {
+      t.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        t.classList.add("active");
+        renderVideoTab(t.dataset.tab);
+      });
+    });
+
+    // initial
+    renderVideoTab("telefrank");
+
+    // ------------------------
+    // 2) DATA: parceiros (com destaque + logos na home)
+    // ------------------------
+    const parceiros = [
+      {name:"Nagazava Tintas", desc:"Tintas automotivas e soluções pra projeto.", coupon:"FRANK", img:"assets/nagazava.png", link:"https://wa.me/554198442305", btn:"WhatsApp"},
+      {name:"Malaguty Bikes", desc:"Bicicletas e peças. Parceiro de estrada.", coupon:"FRANK", img:"assets/malaguty.png", link:"https://wa.me/554130538471", btn:"WhatsApp"},
+      {name:"Gold Lyon Pneus", desc:"Pneus e rodas pra deixar o set pronto.", coupon:"FRANK", img:"assets/goldlyon.png", link:"https://instagram.com/goldlyonpneus", btn:"Instagram"},
+      {name:"Retífica Silva", desc:"Cabeçotes e serviços de precisão.", coupon:"FRANK", img:"assets/silva.png", link:"https://wa.me/554187792090", btn:"WhatsApp"},
+      {name:"Fera Escapamentos", desc:"Original, inox e barulho do jeito certo.", coupon:"FRANK", img:"assets/fera.png", link:"https://wa.me/554192154371", btn:"WhatsApp"},
+    ];
+
+    const partnerGrid = document.getElementById("partner-grid");
+    function renderParceiros(){
+      partnerGrid.innerHTML = "";
+      parceiros.forEach((p) => {
+        const el = document.createElement("div");
+        el.className = "partner";
+        el.innerHTML = \`
+          <img src="\${p.img}" alt="Logo \${p.name}">
+          <div class="meta">
+            <b>\${p.name}</b>
+            <span>\${p.desc}</span>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px">
+              <div class="coupon" title="Cupom (edite se precisar)">🏷 \${p.coupon}</div>
+              <a class="btn" style="padding:10px 12px; border-radius:14px" href="\${p.link}" target="_blank" rel="noopener">\${p.btn}</a>
+            </div>
+          </div>
+        \`;
+        partnerGrid.appendChild(el);
+      });
+    }
+    renderParceiros();
+
+    // Home strip marquee (logos discretos)
+    const marquee = document.getElementById("logo-marquee");
+    function renderMarquee(){
+      marquee.innerHTML = "";
+      const logos = [...parceiros, ...parceiros]; // duplica para “infinito”
+      logos.forEach(p => {
+        const img = document.createElement("img");
+        img.src = p.img;
+        img.alt = p.name;
+        img.title = p.name;
+        img.addEventListener("click", () => window.open(p.link, "_blank"));
+        marquee.appendChild(img);
+      });
+    }
+    renderMarquee();
+
+    // ------------------------
+    // 3) RÁDIO (player local)
+    // ------------------------
+    const playlist = Array.from({length:12}, (_,i)=>({
+      file: \`musica\${i+1}.mp3\`,
+      title: \`LIL. FRANK — Faixa \${String(i+1).padStart(2,'0')}\`
+    }));
+
+    const audio = document.getElementById("audio-player");
+    const titleEl = document.getElementById("track-title");
+    const playBtn = document.getElementById("btn-play");
+    const prevBtn = document.getElementById("btn-prev");
+    const nextBtn = document.getElementById("btn-next");
+    const shuffleBtn = document.getElementById("btn-shuffle");
+    const timeSlider = document.getElementById("time-slider");
+    const currentTimeEl = document.getElementById("current-time");
+    const totalDurationEl = document.getElementById("total-duration");
+    const volumeSlider = document.getElementById("volume-slider");
+    const volLabel = document.getElementById("vol-label");
+    const muteBtn = document.getElementById("btn-mute");
+    const skip15Btn = document.getElementById("btn-skip15");
+    const autoplayBtn = document.getElementById("btn-autoplay");
+
+    let idx = 0;
+    let isShuffle = false;
+    let isDragging = false;
+    let autoplay = true;
+    let lastVol = 0.5;
+
+    function fmt(s){
+      if (!isFinite(s)) return "0:00";
+      const m = Math.floor(s/60);
+      const r = Math.floor(s%60);
+      return \`\${m}:\${String(r).padStart(2,'0')}\`;
+    }
+
+    function loadTrack(i){
+      idx = (i + playlist.length) % playlist.length;
+      const tr = playlist[idx];
+      audio.src = "assets/radio/" + tr.file;
+      titleEl.textContent = tr.title;
+      playBtn.textContent = "▶";
+    }
+
+    function play(){
+      audio.play().then(()=>{
+        playBtn.textContent = "⏸";
+      }).catch(()=>{
+        playBtn.textContent = "▶";
+      });
+    }
+    function pause(){
+      audio.pause();
+      playBtn.textContent = "▶";
+    }
+    function togglePlay(){
+      if (audio.paused) play(); else pause();
+    }
+
+    function next(){
+      if (isShuffle){
+        const nextIdx = Math.floor(Math.random()*playlist.length);
+        loadTrack(nextIdx);
+      } else {
+        loadTrack(idx+1);
+      }
+      if (autoplay) play();
+    }
+    function prev(){
+      loadTrack(idx-1);
+      if (autoplay) play();
+    }
+
+    playBtn.addEventListener("click", togglePlay);
+    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", prev);
+
+    shuffleBtn.addEventListener("click", ()=>{
+      isShuffle = !isShuffle;
+      shuffleBtn.classList.toggle("active", isShuffle);
+    });
+
+    autoplayBtn.addEventListener("click", ()=>{
+      autoplay = !autoplay;
+      autoplayBtn.classList.toggle("active", autoplay);
+      autoplayBtn.textContent = autoplay ? "AUTO" : "MAN";
+    });
+
+    // Time slider (com flag de dragging)
+    timeSlider.addEventListener("mousedown", ()=> isDragging = true);
+    timeSlider.addEventListener("touchstart", ()=> isDragging = true, {passive:true});
+    window.addEventListener("mouseup", ()=> isDragging = false);
+    window.addEventListener("touchend", ()=> isDragging = false);
+
+    timeSlider.addEventListener("input", ()=>{
+      if (!isFinite(audio.duration)) return;
+      currentTimeEl.textContent = fmt(Number(timeSlider.value));
+    });
+
+    timeSlider.addEventListener("change", ()=>{
+      if (!isFinite(audio.duration)) return;
+      audio.currentTime = Number(timeSlider.value);
+    });
+
+    audio.addEventListener("loadedmetadata", ()=>{
+      timeSlider.max = audio.duration || 100;
+      totalDurationEl.textContent = fmt(audio.duration);
+      if (Number(volumeSlider.value) === 0) volumeSlider.value = 0.5;
+      audio.volume = Number(volumeSlider.value);
+      volLabel.textContent = Math.round(audio.volume*100) + "%";
+    });
+
+    audio.addEventListener("timeupdate", ()=>{
+      currentTimeEl.textContent = fmt(audio.currentTime);
+      if (!isDragging) timeSlider.value = audio.currentTime || 0;
+    });
+
+    audio.addEventListener("ended", next);
+
+    // Volume / mute
+    volumeSlider.addEventListener("input", ()=>{
+      const v = Number(volumeSlider.value);
+      audio.volume = v;
+      volLabel.textContent = Math.round(v*100) + "%";
+      if (v > 0) lastVol = v;
+      muteBtn.textContent = (v === 0 || audio.muted) ? "🔇" : "🔊";
+    });
+
+    muteBtn.addEventListener("click", ()=>{
+      if (audio.muted || audio.volume === 0){
+        audio.muted = false;
+        audio.volume = lastVol || 0.5;
+        volumeSlider.value = audio.volume;
+      } else {
+        audio.muted = true;
+      }
+      volLabel.textContent = Math.round(audio.volume*100) + "%";
+      muteBtn.textContent = (audio.muted || audio.volume === 0) ? "🔇" : "🔊";
+    });
+
+    skip15Btn.addEventListener("click", ()=>{
+      audio.currentTime = Math.min((audio.currentTime||0) + 15, audio.duration || 999999);
+    });
+
+    // Primeira faixa
+    loadTrack(0);
+
+    // ------------------------
+    // 4) PIX (copy) — experiência
+    // ------------------------
+    const btnCopy = document.getElementById("btn-copy-pix");
+    const pixKeyEl = document.getElementById("pix-key");
+    const pixMsg = document.getElementById("pix-msg");
+    btnCopy.addEventListener("click", async ()=>{
+      const key = pixKeyEl.textContent.trim();
+      try{
+        await navigator.clipboard.writeText(key);
+        pixMsg.classList.add("show");
+        setTimeout(()=> pixMsg.classList.remove("show"), 1800);
+      }catch(e){
+        alert("Não consegui copiar automaticamente. Copie manualmente:\n\n" + key);
+      }
+    });
+
+    // ------------------------
+    // 5) QUIZ — 5 aleatórias por rodada
+    // ------------------------
+    const btnStartQuiz = document.getElementById("btn-start-quiz");
+    const btnRestartQuiz = document.getElementById("btn-restart-quiz");
+    const qN = document.getElementById("q-n");
+    const qScore = document.getElementById("q-score");
+    const qBar = document.getElementById("q-bar");
+    const qText = document.getElementById("q-text");
+    const qOpts = document.getElementById("q-opts");
+    const qExplain = document.getElementById("q-explain");
+
+    const questionBank = [
+      {q:"O que significa a sigla DOHC?", opts:["Duplo comando no cabeçote","Duplo carburador de alta compressão","Diferencial com acoplamento hidráulico","Distribuição otimizada de combustível"], a:0, exp:"DOHC = Dual OverHead Camshaft: dois comandos de válvulas no cabeçote."},
+      {q:"Qual destes motores ficou famoso pelo layout boxer?", opts:["VW AP","Subaru EJ","GM Family 1","Fiat Fire"], a:1, exp:"O Subaru EJ é conhecido por ser boxer (cilindros opostos)."},
+      {q:"Em turbo, para que serve a wastegate?", opts:["Aumentar compressão estática","Controlar pressão de boost desviando gases","Resfriar o coletor de admissão","Evitar detonação usando água"], a:1, exp:"Wastegate controla o boost abrindo e desviando gases do escape."},
+      {q:"Qual carro é ícone do filme Velozes e Furiosos (1) do Brian?", opts:["Supra laranja","Skyline R34","Eclipse verde","Charger preto"], a:2, exp:"No 1º filme, o Brian começa com o Eclipse verde."},
+      {q:"Qual é a função principal do intercooler em um motor turbo?", opts:["Aumentar octanagem","Reduzir temperatura do ar admitido","Diminuir rotação da turbina","Aumentar a taxa de compressão"], a:1, exp:"Intercooler resfria o ar comprimido, aumentando densidade e reduzindo chance de detonação."},
+      {q:"O que é “detonação” (batida de pino) em termos simples?", opts:["Falta de óleo no motor","Combustão fora do momento ideal/autoignição","Correia dentada folgada","Falha do alternador"], a:1, exp:"Detonação é combustão anormal/autoignição, gerando ondas de choque."},
+      {q:"Qual fabricante popularizou o motor rotativo Wankel em carros de produção?", opts:["Toyota","Mazda","Ford","Renault"], a:1, exp:"Mazda é o maior nome de produção com motores rotativos (RX-7, RX-8)."},
+      {q:"Em preparação, o que significa “downpipe”?", opts:["Mangueira do radiador","Trecho inicial do escape após a turbina","Bomba de combustível auxiliar","Polia do virabrequim"], a:1, exp:"Downpipe é o trecho do escape logo após a turbina/catalisador."},
+      {q:"Qual destes é um motor clássico de 6 cilindros em linha da Nissan associado ao Skyline?", opts:["2JZ","RB26","K20","Coyote"], a:1, exp:"RB26DETT é o lendário do Skyline GT-R."},
+      {q:"Em geral, aumentar a taxa de compressão em motor aspirado tende a:", opts:["Diminuir eficiência térmica","Aumentar eficiência e potência (com combustível adequado)","Eliminar necessidade de ignição","Reduzir temperatura de combustão sempre"], a:1, exp:"Maior taxa melhora eficiência, mas exige combustível/controle para evitar detonação."},
+      {q:"O que é “AFR” em acerto de motor?", opts:["Air Fuel Ratio (relação ar/combustível)","Automatic Fuel Return","Advanced Flow Regulator","After Fire Reaction"], a:0, exp:"AFR = relação ar/combustível (mistura)."},
+      {q:"Qual peça sincroniza virabrequim e comando(s) em muitos motores?", opts:["Biela","Correia/corrente dentada","Volante do motor","Cárter"], a:1, exp:"Correia ou corrente sincroniza o tempo de válvulas com o virabrequim."},
+      {q:"Qual destes carros ficou famoso por ser ‘hot hatch’ turbo dos anos 90?", opts:["Peugeot 205 GTI (aspirado)","VW Golf GTI (varia)","Renault 5 GT Turbo","Fiat Uno Mille"], a:2, exp:"Renault 5 GT Turbo é ícone turbo europeu."},
+      {q:"No mundo JDM, ‘VTEC’ é tecnologia associada a:", opts:["Honda","Subaru","Mitsubishi","BMW"], a:0, exp:"VTEC é sistema de comando variável da Honda."},
+      {q:"O que é ‘blow-off valve’ (BOV) em motores turbo?", opts:["Válvula que alivia pressão do compressor ao fechar borboleta","Válvula que aumenta pressão da bomba","Válvula de respiro do cárter","Sensor de detonação"], a:0, exp:"A BOV alivia pressão do lado do compressor quando a borboleta fecha."},
+      {q:"Qual é a vantagem típica de uma turbina de rolamento (ball bearing) vs. mancais simples?", opts:["Menor spool/atrito","Maior taxa de compressão estática","Dispensa intercooler","Elimina wastegate"], a:0, exp:"Ball bearing reduz atrito e pode melhorar resposta/spool."},
+      {q:"O que costuma acontecer se a mistura ficar muito pobre em carga alta?", opts:["Menos EGT","Mais risco de aquecimento/detonação","Mais torque com segurança","Menor temperatura de câmara sempre"], a:1, exp:"Mistura pobre em alta carga aumenta temperatura e risco de detonação/danos."},
+      {q:"Qual destes é um motor 6 cilindros em linha famoso da Toyota?", opts:["2JZ","EJ20","AP 1.8","Fire 1.0"], a:0, exp:"2JZ (especialmente o GTE) é um clássico da Toyota."},
+      {q:"Em carros antigos, ‘carburador’ serve para:", opts:["Comprimir ar","Misturar ar e combustível mecanicamente","Resfriar o óleo","Controlar ABS"], a:1, exp:"Carburador dosa combustível e mistura com o ar por efeito venturi."},
+      {q:"Qual item é essencial para medir corretamente o acerto em turbo?", opts:["Manômetro de óleo apenas","Wideband (sonda lambda)","Tampão do radiador","Termômetro de cabine"], a:1, exp:"Wideband mede AFR com precisão para acertar mistura."},
+      {q:"Em cultura gearhead, ‘sleeper’ é:", opts:["Carro que dorme na rua","Carro com visual discreto e desempenho alto","Carro com suspensão a ar","Carro de luxo clássico"], a:1, exp:"Sleeper: aparência simples, desempenho surpreendente."},
+      {q:"Qual destes filmes tem forte ligação com cultura de carros e corridas de rua?", opts:["Mad Max","Baby Driver","Gone in 60 Seconds","Todos os anteriores"], a:3, exp:"Todos têm (cada um do seu jeito) uma ligação forte com carros/cultura."},
+      {q:"‘Octanagem’ de combustível está ligada principalmente a:", opts:["Resistência à detonação","Quantidade de etanol","Viscosidade","Temperatura de ebulição"], a:0, exp:"Octanagem indica resistência à detonação (knock)."},
+    ];
+
+    let round = [];
+    let qi = 0;
+    let score = 0;
+    let locked = false;
+
+    function pickRound(){
+      const copy = [...questionBank];
+      // embaralha
+      for(let i=copy.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [copy[i],copy[j]] = [copy[j],copy[i]];
+      }
+      round = copy.slice(0,5);
+      qi = 0;
+      score = 0;
+      locked = false;
+      qScore.textContent = "0";
+      qN.textContent = "0";
+      qBar.style.width = "0%";
+      qExplain.style.display = "none";
+      qExplain.textContent = "";
+    }
+
+    function renderQ(){
+      if (!round.length) return;
+      const item = round[qi];
+      locked = false;
+      qN.textContent = String(qi+1);
+      qText.textContent = item.q;
+      qOpts.innerHTML = "";
+      qExplain.style.display = "none";
+      qExplain.textContent = "";
+
+      item.opts.forEach((txt, idxOpt) => {
+        const b = document.createElement("button");
+        b.className = "opt";
+        b.textContent = txt;
+        b.addEventListener("click", ()=> choose(idxOpt, b));
+        qOpts.appendChild(b);
+      });
+
+      qBar.style.width = ((qi)/5*100) + "%";
+    }
+
+    function choose(selected, btn){
+      if (locked) return;
+      locked = true;
+      const item = round[qi];
+
+      // marca opções
+      [...qOpts.children].forEach((el, k)=>{
+        if (k === item.a) el.classList.add("correct");
+        if (k === selected && selected !== item.a) el.classList.add("wrong");
+        el.disabled = true;
+      });
+
+      if (selected === item.a){
+        score += 1;
+        qScore.textContent = String(score);
+      }
+
+      qExplain.textContent = item.exp;
+      qExplain.style.display = "block";
+
+      // próxima
+      setTimeout(()=>{
+        qi += 1;
+        if (qi >= 5){
+          qBar.style.width = "100%";
+          qText.textContent = \`Fim! Você fez \${score}/5. Quer outra rodada?\`;
+          qOpts.innerHTML = "";
+          qExplain.style.display = "block";
+          qExplain.textContent = (score === 5)
+            ? "Você zerou! Isso aqui é combustível de verdade. 🔥"
+            : "Bora de novo — as perguntas mudam e dá pra subir o nível.";
+          locked = true;
+        } else {
+          renderQ();
         }
+      }, 900);
+    }
 
-        function renderParceiros() {
-            const container = document.getElementById('grid-parceiros');
-            parceiros.forEach(p => {
-                container.innerHTML += `
-                    <div class="partner-card">
-                        <div class="p-img-box">
-                            <img src="assets/${p.img}" class="p-img" alt="${p.name}" onerror="this.style.display='none'">
-                        </div>
-                        <div class="p-info">
-                            <h4>${p.name}</h4>
-                            <p>${p.desc}</p>
-                            <span class="cupom-badge">🎟️ ${p.cupom}</span><br>
-                            <a href="${p.link}" target="_blank" class="btn-zap">📲 ${p.btn}</a>
-                        </div>
-                    </div>`;
-            });
-        }
+    btnStartQuiz.addEventListener("click", ()=>{
+      pickRound();
+      renderQ();
+    });
+    btnRestartQuiz.addEventListener("click", ()=>{
+      pickRound();
+      renderQ();
+    });
 
-        // --- RÁDIO LOGIC (COMPLETO) ---
-        // Referências dos Elementos
-        const player = document.getElementById('audio-player');
-        const trackText = document.getElementById('track-text');
-        const statusText = document.getElementById('status-text');
-        const playBtn = document.getElementById('play-btn');
-        const shuffleBtn = document.getElementById('shuffle-btn');
-        
-        // Referências de Controle de Áudio
-        const timeSlider = document.getElementById('time-slider');
-        const volumeSlider = document.getElementById('volume-slider');
-        const currentTimeSpan = document.getElementById('current-time');
-        const totalDurationSpan = document.getElementById('total-duration');
-        
-        let currentTrack = 1;
-        let isShuffle = false;
-        let isDraggingTime = false; 
-
-        // --- SUA LISTA DE MÚSICAS (MANTIDA) ---
-        const playlist_data = [
-            { file: "musica1.mp3",  titulo: "FÉ NA LUTA",     artista: "LIL. FRANK" },
-            { file: "musica2.mp3",  titulo: "DIPLOMA DE AÇO",     artista: "LIL. FRANK" },
-            { file: "musica3.mp3",  titulo: "SÓ O CARRO ME ENTENDE",    artista: "LIL. FRANK" },
-            { file: "musica4.mp3",  titulo: "ACERTO NO TATO",   artista: "LIL. FRANK" },
-            { file: "musica5.mp3",  titulo: "DO ZERO AO MONSTRO",   artista: "LIL. FRANK" },
-            { file: "musica6.mp3",  titulo: "ESTRANHO NO ROLÊ",   artista: "LIL. FRANK" },
-            { file: "musica7.mp3",  titulo: "GARAGEM DO FRANK",   artista: "LIL. FRANK" },
-            { file: "musica8.mp3",  titulo: "POEIRA NA ESTRADA",   artista: "LIL. FRANK" },
-            { file: "musica9.mp3",  titulo: "PULSO FORJADO",   artista: "LIL. FRANK" },
-            { file: "musica10.mp3", titulo: "STAGE DE VITRINE",   artista: "LIL. FRANK" },
-            { file: "musica11.mp3", titulo: "VIRADA DE CHAVE",   artista: "LIL. FRANK" },
-            { file: "musica12.mp3", titulo: "METAL DE VERDADE",   artista: "LIL. FRANK" }
-        ];
-
-        // --- Funções de Utilitário ---
-        function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-        }
-        
-        // --- Lógica de Carregamento e Controles ---
-
-        function loadTrack(num) {
-            const dados = playlist_data[num - 1];
-            const path = `assets/radio/${dados.file}`; 
-            
-            player.src = path;
-            
-            let displayNum = num < 10 ? '0' + num : num;
-            
-            trackText.innerText = dados.titulo.toUpperCase(); 
-            statusText.innerText = `TRACK ${displayNum} • ${dados.artista.toUpperCase()} ${isShuffle ? '• RND' : ''}`;
-            
-            player.play().then(() => {
-                playBtn.innerText = "⏸";
-            }).catch(error => {
-                console.log("Autoplay bloqueado");
-                playBtn.innerText = "▶";
-            });
-        }
-        
-        // Evento que dispara quando o áudio está carregado e pronto
-        player.addEventListener('loadedmetadata', () => {
-            const totalDuration = player.duration;
-            totalDurationSpan.textContent = formatTime(totalDuration);
-            timeSlider.max = totalDuration; 
-            player.volume = 0.5;
-            volumeSlider.value = 0.5;
-        });
-
-        // Evento para atualizar o tempo e o slider de progresso
-        player.addEventListener('timeupdate', () => {
-            const currentTime = player.currentTime;
-            currentTimeSpan.textContent = formatTime(currentTime);
-
-            if (!isDraggingTime) {
-                timeSlider.value = currentTime;
-            }
-        });
-
-        // Evento para quando o usuário interage com o slider de progresso
-        timeSlider.addEventListener('input', () => {
-            currentTimeSpan.textContent = formatTime(timeSlider.value);
-        });
-        
-        // Evento para quando o usuário SOLTA o slider
-        timeSlider.addEventListener('change', () => {
-            player.currentTime = timeSlider.value;
-        });
-
-        // Lógicas para controlar a flag isDraggingTime (impede a sobreposição do timeupdate)
-        timeSlider.addEventListener('mousedown', () => { isDraggingTime = true; });
-        timeSlider.addEventListener('mouseup', () => { isDraggingTime = false; });
-        
-        // Lógica de Volume
-        volumeSlider.addEventListener('input', () => {
-            player.volume = volumeSlider.value;
-        });
-
-        function playPause() {
-            if (player.paused) {
-                player.play();
-                playBtn.innerText = "⏸";
-            } else {
-                player.pause();
-                playBtn.innerText = "▶";
-            }
-        }
-
-        function nextTrack() {
-            if (isShuffle) {
-                let next;
-                do {
-                    next = Math.floor(Math.random() * playlist_data.length) + 1;
-                } while (next === currentTrack && playlist_data.length > 1);
-                currentTrack = next;
-            } else {
-                currentTrack++;
-                if (currentTrack > playlist_data.length) currentTrack = 1;
-            }
-            loadTrack(currentTrack);
-        }
-
-        function prevTrack() {
-            currentTrack--;
-            if (currentTrack < 1) currentTrack = playlist_data.length;
-            loadTrack(currentTrack);
-        }
-
-        function toggleShuffle() {
-            isShuffle = !isShuffle;
-            if (isShuffle) {
-                shuffleBtn.classList.add('active-shuffle');
-                const dados = playlist_data[currentTrack - 1];
-                let displayNum = currentTrack < 10 ? '0' + currentTrack : currentTrack;
-                statusText.innerText = `TRACK ${displayNum} • ${dados.artista.toUpperCase()} • RND`;
-            } else {
-                shuffleBtn.classList.remove('active-shuffle');
-                const dados = playlist_data[currentTrack - 1];
-                let displayNum = currentTrack < 10 ? '0' + currentTrack : currentTrack;
-                statusText.innerText = `TRACK ${displayNum} • ${dados.artista.toUpperCase()}`;
-            }
-        }
-
-        // Toca próxima automática quando acabar
-        player.onended = nextTrack;
-
-        // --- SISTEMA PIX (MANTIDO) ---
-        const CHAVE_PIX_REAL = "df31ecaa-aebe-4da0-a012-8b6471e919e6";
-
-        function copiarPix() {
-            navigator.clipboard.writeText(CHAVE_PIX_REAL).then(() => {
-                const msg = document.getElementById('msg-copy');
-                msg.style.display = "block";
-                setTimeout(() => msg.style.display = "none", 3000);
-            }).catch(err => {
-                alert("Erro ao copiar. Tente selecionar manualmente.");
-            });
-        }
-
-        // --- INICIALIZAR (MANTIDO) ---
-        renderVideos('grid-ipanema', ipanema);
-        renderVideos('grid-telefrank', telefrank);
-        renderVideos('grid-vlogs', vlogs);
-        renderParceiros();
-        loadTrack(1);
-    </script>
+  </script>
 </body>
 </html>
